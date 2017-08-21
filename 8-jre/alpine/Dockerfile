@@ -5,7 +5,8 @@ RUN set -x \
     && apk add --no-cache curl gnupg bash \
 	&& curl -o /usr/local/bin/gosu -fSL "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64" \
 	&& curl -o /usr/local/bin/gosu.asc -fSL "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64.asc" \
-    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+    && key="B42F6819007F00F88E364FD4036A9C25BF357DD4" \
+    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" || gpg --keyserver keyserver.pgp.com --recv-keys "$key" \
 	&& gpg --verify /usr/local/bin/gosu.asc \
     && apk del --no-cache gnupg \
 	&& rm /usr/local/bin/gosu.asc \

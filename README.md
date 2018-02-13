@@ -2,7 +2,7 @@
 
 Customized OpenJDK Docker containers:
 
-- `bash`, `curl` and `openjdk8-jre` installed
+- `bash`, `curl`, `wget`, `gnupg` and `openjdk8-jre` installed
 - support `JAVA_OPTS` and `JAVA_ARGS`
 
 ## Registry

@@ -13,6 +13,8 @@ RUN set -x \
 	&& apt-get install -y --no-install-recommends \
 		ca-certificates \
 		curl \
+		wget \
+		gnupg \
 	&& apt-get install -y \
 		openjdk-8-jre-headless \
 		ca-certificates-java \

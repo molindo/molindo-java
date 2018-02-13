@@ -8,7 +8,7 @@ ENV JAVA_OPTS ""
 ENV JAVA_ARGS ""
 
 RUN set -x \
-	&& apk add --no-cache curl bash openjdk8-jre \
+	&& apk add --no-cache curl bash wget gnupg openjdk8-jre \
 	&& echo -e '#!/bin/sh\nexec /usr/bin/java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap $JAVA_OPTS "$@" $JAVA_ARGS' > /usr/local/bin/java.sh \
 	&& chmod +x /usr/local/bin/* \
 	&& /usr/local/bin/java.sh -version

@@ -14,7 +14,7 @@ RUN set -x \
 		ca-certificates \
 		curl \
 		wget \
-		gnupg \
+		gnupg dirmngr \
 	&& apt-get install -y \
 		openjdk-8-jre-headless \
 		ca-certificates-java \

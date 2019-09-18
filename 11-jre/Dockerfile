@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:buster-slim
 MAINTAINER Molindo GmbH <build@molindo.at>
 
 ENV LANG C.UTF-8
@@ -11,7 +11,6 @@ ENV JAVA_ARGS ""
 
 RUN set -x \
 	&& mkdir -p /usr/share/man/man1 \
-	&& echo "deb http://ftp.debian.org/debian stretch-backports main" > /etc/apt/sources.list.d/backports.list \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		ca-certificates \
@@ -19,10 +18,10 @@ RUN set -x \
 		wget \
 		gnupg dirmngr \
 	&& apt-get install -y \
-		openjdk-9-jre-headless \
+		openjdk-11-jre-headless \
 		ca-certificates-java \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& echo '#!/bin/sh\nexec /usr/bin/java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap $DEFAULT_JAVA_OPTS $JAVA_OPTS "$@" $DEFAULT_JAVA_ARGS $JAVA_ARGS' > /usr/local/bin/java.sh \
+	&& echo -e '#!/bin/sh\nexec /usr/bin/java -XX:ActiveProcessorCount=$(nproc) $DEFAULT_JAVA_OPTS $JAVA_OPTS "$@" $DEFAULT_JAVA_ARGS $JAVA_ARGS' > /usr/local/bin/java.sh \
 	&& chmod +x /usr/local/bin/* \
 	&& /usr/local/bin/java.sh -XshowSettings:vm -version
 

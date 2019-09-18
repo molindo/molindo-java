@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.10
 MAINTAINER Molindo GmbH <build@molindo.at>
 
 ENV LANG C.UTF-8
@@ -10,8 +10,8 @@ ENV JAVA_OPTS ""
 ENV JAVA_ARGS ""
 
 RUN set -x \
-	&& apk add --no-cache curl bash wget gnupg openjdk8-jre \
-	&& echo -e '#!/bin/sh\nexec /usr/bin/java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap $DEFAULT_JAVA_OPTS $JAVA_OPTS "$@" $DEFAULT_JAVA_ARGS $JAVA_ARGS' > /usr/local/bin/java.sh \
+	&& apk add --no-cache curl bash wget gnupg openjdk8-jre coreutils \
+	&& echo -e '#!/bin/sh\nexec /usr/bin/java -XX:ActiveProcessorCount=$(nproc) $DEFAULT_JAVA_OPTS $JAVA_OPTS "$@" $DEFAULT_JAVA_ARGS $JAVA_ARGS' > /usr/local/bin/java.sh \
 	&& chmod +x /usr/local/bin/* \
 	&& /usr/local/bin/java.sh -XshowSettings:vm -version
 

@@ -21,7 +21,7 @@ RUN set -x \
 		openjdk-8-jre-headless \
 		ca-certificates-java \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& echo -e '#!/bin/sh\nexec /usr/bin/java -XX:ActiveProcessorCount=$(nproc) $DEFAULT_JAVA_OPTS $JAVA_OPTS "$@" $DEFAULT_JAVA_ARGS $JAVA_ARGS' > /usr/local/bin/java.sh \
+	&& echo '#!/bin/sh\nexec /usr/bin/java -XX:ActiveProcessorCount=$(nproc) $DEFAULT_JAVA_OPTS $JAVA_OPTS "$@" $DEFAULT_JAVA_ARGS $JAVA_ARGS' > /usr/local/bin/java.sh \
 	&& chmod +x /usr/local/bin/* \
 	&& /usr/local/bin/java.sh -XshowSettings:vm -version
 
